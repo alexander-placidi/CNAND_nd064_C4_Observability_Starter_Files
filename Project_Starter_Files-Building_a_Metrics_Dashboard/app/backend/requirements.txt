@@ -1,0 +1,7 @@
+Flask==3.1.*
+requests==2.32.*
+pylint==3.3.*
+gunicorn==23.0.*
+pymongo==4.11.*
+Flask-PyMongo==3.0.*
+prometheus-client==0.21.*
