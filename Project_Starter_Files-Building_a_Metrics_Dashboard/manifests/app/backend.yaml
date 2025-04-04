@@ -12,8 +12,10 @@ spec:
       labels:
         app: backend
     spec:
+      restartPolicy: Always
       containers:
-      - name: backend      
+      - name: backend
+        imagePullPolicy: Always  
         #image: ghcr.io/jasonsmithio/backend:v1
         image: aplacidi/udac-obs-backend-service:latest
         ports:
