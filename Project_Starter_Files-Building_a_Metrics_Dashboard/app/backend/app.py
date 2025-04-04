@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from prometheus_client import make_wsgi_app
+from prometheus_flask_exporter import PrometheusMetrics
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)

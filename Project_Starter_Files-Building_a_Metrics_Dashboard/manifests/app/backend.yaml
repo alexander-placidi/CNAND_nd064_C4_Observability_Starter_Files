@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend-app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -13,9 +13,9 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend
-        # We advise you to build, push and use your own image, instead of using instructor's image.      
-        image: ghcr.io/jasonsmithio/backend:v1
+      - name: backend      
+        #image: ghcr.io/jasonsmithio/backend:v1
+        image: aplacidi/udac-obs-backend-service:latest
         ports:
         - containerPort: 8081
 ---
