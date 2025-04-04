@@ -12,6 +12,12 @@ The **Project_Starter_Files** directory has the files you'll need for the projec
 kubectl port-forward service/prometheus-grafana --address 0.0.0.0 3000:80 --namespace monitoring
 kubectl port-forward service/frontend-service --address 0.0.0.0 8080:8080
 
+kubectl run mycurlpod --image=curlimages/curl -i --tty -- sh
+
+kubectl scale --replicas=0 deployment/backend-app
+
+
+
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.6.3/cert-manager.yaml
 
 kubectl create -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.65.0/jaeger-operator.yaml -n observability
