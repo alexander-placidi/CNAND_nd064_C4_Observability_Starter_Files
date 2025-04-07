@@ -2,10 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-app
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/path: /metrics
-    prometheus.io/port: "8081"
+  labels:
+    app: backend-app
 spec:
   replicas: 1
   selector:
@@ -20,19 +18,42 @@ spec:
       containers:
       - name: backend
         imagePullPolicy: Always  
-        #image: ghcr.io/jasonsmithio/backend:v1
         image: aplacidi/udac-obs-backend-service:latest
         ports:
-        - containerPort: 8080
+        - name: port-backend
+          containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backend-service
+  labels:
+    app: backend-app # Will be selected by Service Monitor
 spec:
   selector:
     app: backend
   ports:
-    - port: 8081
-      targetPort: 8080
+    - name: port-service-backend
+      port: 8081
+      targetPort: port-backend
   type: LoadBalancer
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor # See here: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/developer/getting-started.md#using-servicemonitors
+metadata:
+  name: backend
+  namespace: monitoring
+  labels:
+    app: backend
+    release: prometheus # Prometheus selects service monitors with specific labels. See here: kubectl get prometheus -n monitoring -o yaml
+spec:
+  selector:
+    matchLabels:
+      app: backend-app # Select the services you wish to monitor
+  endpoints:
+  - port: port-service-backend
+    path: /metrics
+    interval: 15s
+  namespaceSelector:
+    matchNames:
+    - default

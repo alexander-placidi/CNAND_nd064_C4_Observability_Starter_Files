@@ -6,3 +6,5 @@ pymongo==4.11.*
 Flask-PyMongo==3.0.*
 prometheus-client==0.21.*
 prometheus-flask-exporter==0.23.*
+opentelemetry-distro
+jaeger-client

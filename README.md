@@ -10,8 +10,12 @@ The **Project_Starter_Files** directory has the files you'll need for the projec
 ** Temporary notes **
 
 kubectl port-forward service/prometheus-grafana --address 0.0.0.0 3000:80 --namespace monitoring
+kubectl port-forward service/prometheus-kube-prometheus-prometheus --address 0.0.0.0 9090:9090 --namespace monitoring    # PromUI
+
 kubectl port-forward service/frontend-service --address 0.0.0.0 8080:8080
 kubectl port-forward service/backend-service --address 0.0.0.0 8081:8081
+
+kubectl port-forward service/jaeger-inmemory-instance-collector 8086:16686
 
 kubectl run mycurlpod --image=curlimages/curl -i --tty -- sh
 
