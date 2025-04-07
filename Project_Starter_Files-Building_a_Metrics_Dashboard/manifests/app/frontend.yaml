@@ -12,10 +12,11 @@ spec:
       labels:
         app: frontend
     spec:
+      restartPolicy: Always
       containers:
       - name: frontend
-        # We advise you to build, push and use your own image, instead of using instructor's image.
-        image: ghcr.io/jasonsmithio/myfrontend:v1
+        imagePullPolicy: Always
+        image: aplacidi/udac-obs-frontend-service:latest
         ports:
         - containerPort: 8080
 ---

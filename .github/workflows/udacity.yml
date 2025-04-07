@@ -31,3 +31,12 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: aplacidi/udac-obs-backend-service:latest
+      -
+        name: Build and push - Frontend service
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Project_Starter_Files-Building_a_Metrics_Dashboard/app/frontend
+          file: ./Project_Starter_Files-Building_a_Metrics_Dashboard/app/frontend/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: aplacidi/udac-obs-frontend-service:latest
