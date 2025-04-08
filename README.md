@@ -116,4 +116,4 @@ kubectl port-forward service/prometheus-kube-prometheus-prometheus --address 0.0
 #### Miscellaneous ####
 
 kubectl run mycurlpod --image=curlimages/curl -i --tty -- sh
-kubectl scale --replicas=1 deployment/backend-app
+kubectl scale --replicas=3 deployment/backend-app

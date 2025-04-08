@@ -5,6 +5,8 @@ from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from prometheus_flask_exporter import PrometheusMetrics
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from environs import env
+import random
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
@@ -34,9 +36,9 @@ def init_tracer(service):
 
 tracer = init_tracer("backend")
 
-NASA_API_KEY = "DEMO_KEY"
+NASA_API_KEY = env("NASA_API_KEY", default="DEMO_KEY")
 
-@app.route("/")
+@app.route("/asteroids")
 def homepage():
     with tracer.start_span('get_asteroids') as span:
         res = requests.get(f"https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key={NASA_API_KEY}")
@@ -64,6 +66,14 @@ def homepage():
                         site_span.set_tag("http.status_code", res.status_code)      
     
     return asteroids
+
+@app.route("/trail")
+def trail():
+    n = random.randrange(0, 10)
+    if(n < 3):
+        raise Exception("Service not available.")
+    else:
+        return "Hello"
 
 if __name__ == "__main__":
     app.run()

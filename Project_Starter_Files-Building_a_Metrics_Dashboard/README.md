@@ -2,19 +2,41 @@
 
 ## Verify the monitoring installation
 
-*TODO:* run `kubectl` command to show the running pods and services for all components. Take a screenshot of the output and include it here to verify the installation
+*DONE* run `kubectl` command to show the running pods and services for all components. Take a screenshot of the output and include it here to verify the installation
+answer-img/kubectl_monitoring.png
+answer-img/kubectl_tracing.png
 
 ## Setup the Jaeger and Prometheus source
-*TODO:* Expose Grafana to the internet and then setup Prometheus as a data source. Provide a screenshot of the home page after logging into Grafana.
+*DONE:* Expose Grafana to the internet and then setup Prometheus as a data source. Provide a screenshot of the home page after logging into Grafana.
+answer-img/grafana_home.png
 
 ## Create a Basic Dashboard
-*TODO:* Create a dashboard in Grafana that shows Prometheus as a source. Take a screenshot and include it here.
+*DONE:* Create a dashboard in Grafana that shows Prometheus as a source. Take a screenshot and include it here.
+answer-img/grafana_sample_dashboard.png
 
 ## Describe SLO/SLI
-*TODO:* Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
+*DONE:* Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
+
+An SLO is a service level objective. It specifies the quality of service we aim for. 
+Based on the monthly uptime it could be "99,9% uptime per month". If we choose request response time the goal could be "the response time must not be greater than 50ms".
+
+An SLI is a service level indicator and measures certain aspects of the quality of service that is provided.
+Examples are monthly uptime or request response time.
+We can describe SLOs with SLIs like that: 
+99,9% <= monthly uptime <= 100%
+request response time <= 50ms
 
 ## Creating SLI metrics.
-*TODO:* It is important to know why we want to measure certain metrics for our customer. Describe in detail 5 metrics to measure these SLIs. 
+*DONE:* It is important to know why we want to measure certain metrics for our customer. Describe in detail 5 metrics to measure these SLIs.
+
+1. Latency - It's the time taken to serve a request and usually it's measured in ms. 
+It helps us to identify bottlenecks and opportunities to optimize applications.
+2. Error rate - It's the number of requests that fail. We may consider all the requests that conclude with a HTTP 5xx response code. The error rate is interesting for us, because it helps us to identify application errors and scenarios where they occur. 
+3. Saturation - It measures the overall capacity of a system like available CPU and free memory.
+It helps us to understand the impact of our services on the infrastructure. Therefore we can take measures to optimize costs. 
+4. Traffic - The traffic is the amount network requests such as HTTP or GRPC requests per second.
+If we measure how much our services are requested over time, we can take measures to scale up or down accordingly.
+5. Uptime - The time our services are available. This tells us if our services are healthy and ready to serve incoming requests. 
 
 ## Create a Dashboard to measure our SLIs
 *TODO:* Create a dashboard to measure the uptime of the frontend and backend services We will also want to measure to measure 40x and 50x errors. Create a dashboard that show these values over a 24 hour period and take a screenshot.
